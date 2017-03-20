@@ -39,7 +39,8 @@ class CartComponentTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $registry = new ComponentRegistry();
+        $controller = new \Cake\Controller\Controller();
+        $registry = new ComponentRegistry($controller);
         $this->Cart = new CartComponent($registry);
     }
 

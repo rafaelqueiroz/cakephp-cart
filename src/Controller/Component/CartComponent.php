@@ -30,12 +30,28 @@ class CartComponent extends Component
     /**
      * @var array
      */
-    protected $_defaultConfig = [];
+    protected $_defaultConfig = [
+        'storage' => \Cart\Storage\SessionStorage::class
+    ];
 
     /**
      * @var array
      */
     protected $_objects = [];
+
+    /**
+     * @var \Cart\Storage\StorageInterface
+     */
+    protected $_storage;
+
+    /**
+     * @param array $config
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+        $this->storage(new $this->_config['storage']($this->_registry->getController()->request));
+    }
 
     /**
      * @param \Cart\Entity\EntityPriceAwareInterface $entity
@@ -53,6 +69,7 @@ class CartComponent extends Component
             'quantity' => $quantity
         ];
 
+        $this->storage()->write($this->_objects);
         return true;
     }
 
@@ -68,6 +85,8 @@ class CartComponent extends Component
         foreach ($this->_objects as &$object) {
             if ($object['entity'] == $entity) {
                 $object['quantity'] = $quantity;
+                $this->storage()->write($this->_objects);
+
                 return true;
             }
         }
@@ -85,11 +104,26 @@ class CartComponent extends Component
         foreach ($this->_objects as $key => $object) {
             if ($object['entity'] == $entity) {
                 unset ($this->_objects[$key]);
+                $this->storage()->write($this->_objects);
                 return true;
             }
         }
 
+
         throw new \Exception();
+    }
+
+    /**
+     * @param \Cart\Storage\StorageInterface $storage
+     * @return \Cart\Storage\StorageInterface
+     */
+    public function storage(\Cart\Storage\StorageInterface $storage = null)
+    {
+        if (!$this->_storage instanceof \Cart\Storage\StorageInterface) {
+            $this->_storage = $storage;
+        }
+
+        return $this->_storage;
     }
 
     /**
