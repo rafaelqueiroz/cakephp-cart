@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/rafaelqueiroz/cakephp-cart.svg?branch=master)](https://travis-ci.org/rafaelqueiroz/cakephp-cart)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rafaelqueiroz/cakephp-cart/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/rafaelqueiroz/cakephp-cart/?branch=master)
+
 # Cart plugin for CakePHP
 
 ## Installation
