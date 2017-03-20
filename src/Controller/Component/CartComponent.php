@@ -51,6 +51,7 @@ class CartComponent extends Component
     {
         parent::initialize($config);
         $this->storage(new $this->_config['storage']($this->_registry->getController()->request));
+        $this->_objects = $this->storage()->read();
     }
 
     /**
@@ -111,6 +112,27 @@ class CartComponent extends Component
 
 
         throw new \Exception();
+    }
+
+    /**
+     * @return array
+     */
+    public function get()
+    {
+        return $this->storage()->read();
+    }
+
+    /**
+     * @return int
+     */
+    public function total()
+    {
+        $total = 0;
+        foreach ($this->_objects as $object) {
+            $total += $object['entity']->price * $object['quantity'];
+        }
+
+        return $total;
     }
 
     /**
