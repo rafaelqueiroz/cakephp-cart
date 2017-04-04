@@ -41,7 +41,7 @@ class SessionStorage implements StorageInterface
     /**
      * @param \Cake\Http\ServerRequest $request
      */
-    public function __construct(\Cake\Http\ServerRequest $request)
+    public function __construct($request)
     {
         $this->_session = $request->session();
     }
