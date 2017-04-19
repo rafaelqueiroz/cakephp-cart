@@ -122,6 +122,20 @@ class CartComponent extends Component
         return $this->storage()->read();
     }
 
+    public function count()
+    {
+        return count ($this->get());
+    }
+
+    /**
+     * @return void
+     */
+    public function clear()
+    {
+        $this->storage()->delete();
+    }
+
+
     /**
      * @return int
      */

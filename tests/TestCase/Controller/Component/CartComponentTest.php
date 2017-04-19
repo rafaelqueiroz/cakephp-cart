@@ -148,4 +148,15 @@ class CartComponentTest extends TestCase
         $this->Cart->add($item, 3);
         $this->assertTrue($this->Cart->total() === 150);
     }
+
+    /**
+     *
+     */
+    public function testClear()
+    {
+        $this->Cart->add(new \Cart\Entity\Item());
+        $this->Cart->clear();
+
+        $this->assertTrue($this->Cart->get() === []);
+    }
 }
